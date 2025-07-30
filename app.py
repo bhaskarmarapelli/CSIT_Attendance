@@ -28,7 +28,7 @@ def summary():
     cgpa = student_data['cgpa'].iloc[0]
     backlogs = student_data['backlogs'].iloc[0]
     councelorname = student_data['counselorname'].iloc[0]
-
+    councelorcontact = student_data['counselorcontact'].iloc[0]
     courses = student_data[[
         'coursecode',
         'coursename',
@@ -43,7 +43,7 @@ def summary():
                            cgpa=cgpa,
                            backlogs=backlogs,
                            councelorname=councelorname,
-                           courses=courses)
+                           courses=courses,councelorcontact=councelorcontact)
 
 if __name__ == '__main__':
     app.run(debug=True)

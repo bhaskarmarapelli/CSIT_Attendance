@@ -99,7 +99,7 @@
       <thead>
         <tr>
           <th>Student Name</th>
-          <th>Counselor Name</th>
+          <th >Counselor</th>
           <th>CGPA</th>
           <th>Backlogs</th>
         </tr>
@@ -107,14 +107,14 @@
       <tbody>
         <tr>
           <td>{{ name }}</td>
-          <td>{{ councelorname }}</td>
+          <td>{{ councelorname }} - {{ councelorcontact | int }}</td>
           <td>{{ cgpa }}</td>
-          <td>{{ backlogs }}</td>
+          <td>{{ backlogs | int }}</td>
         </tr>
       </tbody>
     </table>
 
-    <h3>📘 Attendance for Month of July-2025 (29-7-2025)</h3>
+    <h5>📘 Attendance for Month of July-2025 (29-7-2025)</h5>
 
     <table class="table table-bordered">
       <thead>
