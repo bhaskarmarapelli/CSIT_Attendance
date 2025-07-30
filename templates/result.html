@@ -70,6 +70,12 @@
       border-top: 3px solid #007bff;
     }
 
+     ul.no-bullets {
+            list-style-type: none;  /* Removes bullet points */
+            padding: 0;             /* Removes left indentation */
+        }
+
+
     .highlight {
       background-color: #d9f0e1;
       font-weight: bold;
@@ -140,6 +146,38 @@
         {% endfor %}
       </tbody>
     </table>
+                <h3>Not Declared Courses and Backlogs</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Not Declared Courses</th>
+                        <th>Backlog Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                           <ul class="no-bullets">
+        {% for udcourse in notdeclaredcoursessplit %}
+            <li>{{ udcourse  }}</li>
+        {% endfor %}
+    </ul >
+                        </td>
+                        <td>
+
+
+                            <ul class="no-bullets">
+        {% for backlog in backlogdetailssplit %}
+            <li>{{ backlog  }}</li>
+        {% endfor %}
+    </ul>
+
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
 
     <div class="footer">
       Developed by <strong>Dr. Bhaskar Marapelli</strong>, Associate Professor & Alternate HOD CSIT

@@ -37,13 +37,34 @@ def summary():
         'attendance_percentage'
     ]].to_dict('records')
 
+
+    if 'notdeclaredcourses' in student_data.columns:
+        notdeclaredcourses = student_data['notdeclaredcourses'].iloc[0]
+        notdeclaredcoursessplit = notdeclaredcourses.split("||")
+
+    else:
+        notdeclaredcoursessplit = 'Not Available'
+
+
+
+
+    if 'backlogdetails' in student_data.columns:
+        backlogdetails = student_data['backlogdetails'].iloc[0]
+        backlogdetailssplit = backlogdetails.split("||")
+
+    else:
+        backlogdetailssplit = 'No Backlogs'
+
     return render_template('result.html',
                            student_id=student_id,
                            name=name,
                            cgpa=cgpa,
                            backlogs=backlogs,
                            councelorname=councelorname,
-                           courses=courses,councelorcontact=councelorcontact)
+                           courses=courses,
+                           councelorcontact=councelorcontact,
+                           notdeclaredcoursessplit=notdeclaredcoursessplit,
+                           backlogdetailssplit=backlogdetailssplit)
 
 if __name__ == '__main__':
     app.run(debug=True)
