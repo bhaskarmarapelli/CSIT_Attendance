@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Attendance Report</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Screen Styles -->
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -70,11 +71,10 @@
       border-top: 3px solid #007bff;
     }
 
-     ul.no-bullets {
-            list-style-type: none;  /* Removes bullet points */
-            padding: 0;             /* Removes left indentation */
-        }
-
+    ul.no-bullets {
+      list-style-type: none;
+      padding: 0;
+    }
 
     .highlight {
       background-color: #d9f0e1;
@@ -92,96 +92,144 @@
       }
     }
   </style>
+
+  <!-- Print Styles -->
+  <style media="print">
+    body {
+      font-size: 10px;
+      background-color: #fff;
+      color: #000;
+      margin: 0;
+    }
+
+    .header {
+      background-color: transparent;
+      border: none;
+      padding: 5px;
+    }
+
+    .header img {
+      max-width: 100px;
+      box-shadow: none;
+    }
+
+    h2, h3, h5 {
+      font-size: 14px;
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 5px;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 3px;
+      font-size: 9px;
+      text-align: center;
+    }
+
+    ul.no-bullets {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .footer {
+      font-size: 9px;
+      margin-top: 5px;
+      border-top: 1px solid #000;
+      background-color: transparent;
+    }
+  </style>
 </head>
 <body>
-  <div class="header">
+ <div class="header">
     <img src="/static/csit_logo.png" alt="CSIT Department Logo">
   </div>
 
-  <div class="container-fluid px-4">
-    <h2>Attendance of Student ID: {{ student_id }}</h2>
+  <h2>Attendance of Student ID: {{ student_id }}</h2>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Student Name</th>
-          <th >Counselor</th>
-          <th>CGPA</th>
-          <th>Backlogs</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ name }}</td>
-          <td>{{ councelorname }} - {{ councelorcontact | int }}</td>
-          <td>{{ cgpa }}</td>
-          <td>{{ backlogs | int }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Counselor</th>
+        <th>CGPA</th>
+        <th>Backlogs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ name }}</td>
+        <td>{{ councelorname }} - {{ councelorcontact | int }}</td>
+        <td>{{ cgpa }}</td>
+        <td>{{ backlogs | int }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <h5>📘 Attendance for Month of July-2025 (31-7-2025)</h5>
+  <h5>📘 Attendance Upto 31-7-2025</h5>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>Course Code</th>
-          <th>Course Name</th>
-          <th>Total Class Conducted</th>
-          <th>Total Class Attended</th>
-          <th>Attendance (%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for course in courses %}
-        <tr>
-          <td>{{ loop.index }}</td>
-          <td>{{ course.coursecode }}</td>
-          <td>{{ course.coursename }}</td>
-          <td>{{ course.totalclassesconducted }}</td>
-          <td>{{ course.totalclassesattended }}</td>
-          <td>{{ course.attendance_percentage }}%</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-                <h3>Not Declared Courses and Backlogs</h3>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Not Declared Courses</th>
-                        <th>Backlog Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                           <ul class="no-bullets">
-        {% for udcourse in notdeclaredcoursessplit %}
-            <li>{{ udcourse  }}</li>
-        {% endfor %}
-    </ul >
-                        </td>
-                        <td>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Course Code</th>
+        <th>Course Name</th>
+        <th>Total Class Conducted</th>
+        <th>Total Class Attended</th>
+        <th>Attendance (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ course.coursecode }}</td>
+        <td>{{ course.coursename }}</td>
+        <td>{{ course.totalclassesconducted }}</td>
+        <td>{{ course.totalclassesattended }}</td>
+        <td>{{ course.attendance_percentage }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
+  <h3>Not Declared Courses and Backlogs</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Not Declared Courses</th>
+        <th>Backlog Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul class="no-bullets">
+            {% for udcourse in notdeclaredcoursessplit %}
+            <li>{{ udcourse }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <ul class="no-bullets">
+            {% for backlog in backlogdetailssplit %}
+            <li>{{ backlog }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-                            <ul class="no-bullets">
-        {% for backlog in backlogdetailssplit %}
-            <li>{{ backlog  }}</li>
-        {% endfor %}
-    </ul>
-
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-    <div class="footer">
-      Developed by <strong>Dr. Bhaskar Marapelli</strong>, Associate Professor & Alternate HOD CSIT
-    </div>
+  <div class="footer">
+    Developed by <strong>Dr. Bhaskar Marapelli</strong>, Associate Professor & Alternate HOD CSIT
   </div>
 </body>
+
 </html>
