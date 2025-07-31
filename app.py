@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Required for flashing messages
 
 # Load attendance data
-df = pd.read_csv('merged_output.csv', encoding='latin1')
+df = pd.read_csv('attendance31july.csv')
 
 @app.route('/')
 def home():
