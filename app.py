@@ -11,7 +11,7 @@ df = pd.read_csv('attendance31july.csv')
 def home():
     return render_template('search.html')
 
-@app.route('/summary', methods=['POST'])
+@app.route('/report', methods=['POST'])
 def summary():
     student_id = request.form['student_id']
     try:
