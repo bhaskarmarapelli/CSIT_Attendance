@@ -115,8 +115,8 @@ html, body {
     <h2>Enter Student ID</h2>
 
     <form action="/report" method="post">
-      <input type="text" name="student_id" placeholder="e.g. 2200090001" required>
-      <button type="submit">Generate Report</button>
+      <input type="text" id="studentId" name="student_id" placeholder="e.g. 2200090001" required>
+      <button type="submit" id="generateReport">Generate Report</button>
     </form>
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
