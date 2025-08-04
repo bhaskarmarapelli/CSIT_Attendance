@@ -127,6 +127,13 @@ html, body {
     {% endfor %}
   {% endif %}
 {% endwith %}
+
+    <form action="{{ url_for('all_reports') }}">
+    <button type="submit">Generate All Students Reports</button>
+</form>
+
+
+
     <div class="footer">
       <span>Dr Bhaksar Marapelli, Department of CSIT</span>, KLEF Deemed to be University,
 Green Fields, Vaddeswaram,

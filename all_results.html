@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Student Reports</title>
+
+    <style>
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+        }
+</style>
+</head>
+<body>
+    <h1>All Student Reports</h1>
+    {% for student in all_students %}
+
+
+        <div class="page-break" style="border:1px solid #ccc; padding:10px; margin-bottom:20px;">
+            <h2>{{ student.name }} (ID: {{ student.student_id }})</h2>
+            <p>CGPA: {{ student.cgpa }}</p>
+            <p>Backlogs: {{ student.backlogs | int}}</p>
+            <h4>Counselor: {{ student.councelorname }} ({{ student.councelorcontact | int}})</h4>
+
+            <h3>Attendance Courses upt 31 July 2025</h3>
+            <Table border="1" >
+                <tr>
+                <th>CourseCode</th>
+                <th>CourseName</th>
+                <th>Attendance_Percentage</th></tr>
+                <tr></tr>
+                {% for course in student.courses %}
+                <tr></tr><td align="center">{{ course.coursecode }} </td><td align="center"> {{ course.coursename }}</td><td align="center">{{ course.attendance_percentage }}%</td>
+                {% endfor %}
+            </tr></Table>
+
+              <h3>Not Declared Courses and Backlogs</h3>
+<table border="1">
+    <tr> <th>Not Declared Courses </th><th>Backlog Details</th> </tr>
+           <tr> <td><ul>
+                {% if student.notdeclaredcoursessplit != 'Not Available' %}
+                    {% for course in student.notdeclaredcoursessplit %}
+                        <li>{{ course }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Not Available</li>
+                {% endif %}
+            </ul> </td>
+
+
+           <td> <ul>
+                {% if student.backlogdetailssplit != 'No Backlogs' %}
+                    {% for detail in student.backlogdetailssplit %}
+                        <li>{{ detail }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No Backlogs</li>
+                {% endif %}
+            </ul></td>
+    </tr>
+    </table>
+        </div>
+    {% endfor %}
+</body>
+</html>
