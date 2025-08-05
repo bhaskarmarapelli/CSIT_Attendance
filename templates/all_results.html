@@ -15,24 +15,29 @@ body {
         position: relative;
     }
         .footer {
-      margin-top: 40px;
-      padding: 15px;
+      margin-top: 20px;
+      padding: 10px;
       background-color: #dee2e6;
       text-align: center;
-      font-size: 0.95em;
-      border-top: 3px solid #007bff;
+      font-size: 0.70em;
+      border-top: 2px solid #007bff;
     }
 
-    .address-box {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        border: 1px solid #999;
-        padding: 10px;
-        background-color: #f9f9f9;
-        width: 250px;
-        font-size: 14px;
-    }
+
+.address-box {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    border: 1px solid #999;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 250px;
+    font-size: 12px;
+      /* or any suitable value */
+
+
+}
+
 
     table {
         width: 100%;
@@ -56,9 +61,26 @@ body {
     }
 
     @media print {
+
+
+ body {
+        counter-reset: page;
+    }
+
+    .report::after {
+        content: "Page " counter(page);
+        counter-increment: page;
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        font-size: 10px;
+        color: #333;
+    }
+
         .page-break {
-            page-break-before: always;
-        }
+        page-break-before: always;
+    }
+
     }
 
     </style>
@@ -81,8 +103,9 @@ body {
 
             <h2>{{ student.name }} (ID: {{ student.student_id }})</h2>
             <p><strong>CGPA:</strong> {{ student.cgpa }}</p>
-            <p><strong>Backlogs:</strong> {{ student.backlogs }}</p>
-            <p><strong>Counselor:</strong> {{ student.councelorname }} ({{ student.councelorcontact }})</p>
+            <p><strong>Backlogs:</strong> {{ student.backlogs | int}}</p>
+            <p><strong>Counselor:</strong> {{ student.councelorname }} ({{ student.councelorcontact | int
+                }})</p>
                   <h3>Courses</h3>
             <table>
                 <thead>
@@ -133,11 +156,10 @@ body {
     </tr>
     </table>
              <div class="footer">
-      <span>Dr Bhaksar Marapelli, Department of CSIT</span>, KLEF Deemed to be University,
+      <span>Dr Bhaskar Marapelli, Department of CSIT</span>, KLEF Deemed to be University,
 Green Fields, Vaddeswaram,
 Guntur District, A.P., INDIA.
 Pincode : 522 302.
-Phone : 08645 - 350200.
     </div>
         </div>
     {% endfor %}
