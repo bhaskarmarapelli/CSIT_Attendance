@@ -2,68 +2,91 @@
 <html>
 <head>
     <title>All Student Reports</title>
-    <style>
-
+<style>
 body {
-        font-family: Arial, sans-serif;
-    }
-
-    .report {
-        border: 1px solid #ccc;
-        padding: 20px;
-        margin-bottom: 30px;
-        position: relative;
-    }
-        .footer {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #dee2e6;
-      text-align: center;
-      font-size: 0.70em;
-      border-top: 2px solid #007bff;
-    }
-
-
-.address-box {
-    position: absolute;
-    top: 10px;
-    right: 40px;
-    border: 1px solid #999;
-    padding: 10px;
-    background-color: #f9f9f9;
-    width: 250px;
-    font-size: 12px;
-      /* or any suitable value */
-
-
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+.report {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 30px;
+    position: relative;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
+.header-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 25vh;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #007bff;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-    th, td {
-        border: 1px solid #999;
-        padding: 8px;
-        text-align: left;
-    }
+.logo-box {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    th {
-        background-color: #f2f2f2;
-    }
-      .header img {
-      max-width: 180px;
-      border-radius: 10px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
+.logo-box img {
+    max-height: 100px;
+    max-width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
 
-    @media print {
+.address-box, .address-box1 {
+    background-color: #f9f9f9;
+    border: 1px solid #999;
+    padding: 10px;
+    font-size: 14px;
+    width: 250px;
+}
 
+.address-box {
+    grid-column: 1;
+    justify-self: start;
+}
 
- body {
+.address-box1 {
+    grid-column: 3;
+    justify-self: end;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dee2e6;
+    text-align: center;
+    font-size: 0.70em;
+    border-top: 2px solid #007bff;
+}
+
+@media print {
+    body {
         counter-reset: page;
     }
 
@@ -77,35 +100,61 @@ body {
         color: #333;
     }
 
-        .page-break {
+    .page-break {
         page-break-before: always;
     }
+}
+</style>
 
-    }
-
-    </style>
 </head>
 <body>
     <h1>All Student Reports</h1>
     {% for student in all_students %}
         <div class="report page-break">
 
-<div class="header">
-    <img src="/static/csit_logo.png" alt="CSIT Department Logo">
-  </div>
 
+<div class="header-section">
     <div class="address-box">
-        <strong>Address:</strong><br>
+        <strong>To:</strong><br>
+        {{ student.fathername }}<br>
         {{ student.Postal_Address }}<br>
         <strong>Phone:</strong><br>
-        {{ student.phone}}
+        {{ student.phone }}
     </div>
 
+    <div class="logo-box">
+        <img src="/static/csit_logo.png" alt="CSIT Department Logo">
+    </div>
+
+    <div class="address-box1">
+        <strong>From:</strong><br>
+        {{ student.councelorname }}<br>
+        <strong>Phone:</strong><br>
+        {{ student.councelorcontact | int }}<br>
+        <strong>Department of CSIT, KL Deemed to be university</strong><br>
+    </div>
+</div>
+
+
             <h2>{{ student.name }} (ID: {{ student.student_id }})</h2>
-            <p><strong>CGPA:</strong> {{ student.cgpa }}</p>
-            <p><strong>Backlogs:</strong> {{ student.backlogs | int}}</p>
-            <p><strong>Counselor:</strong> {{ student.councelorname }} ({{ student.councelorcontact | int
-                }})</p>
+           <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Counselor</th>
+        <th>CGPA</th>
+        <th>Backlogs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.councelorname }} - {{ student.councelorcontact | int }}</td>
+        <td>{{ student.cgpa }}</td>
+        <td>{{ student.backlogs | int }}</td>
+      </tr>
+    </tbody>
+  </table>
                   <h3>Courses</h3>
             <table>
                 <thead>
@@ -130,31 +179,7 @@ body {
                 </tbody>
             </table>
 
-      <h3>Not Declared Courses and Backlogs</h3>
-<table border="1">
-    <tr> <th>Not Declared Courses </th><th>Backlog Details</th> </tr>
-           <tr> <td><ul>
-                {% if student.notdeclaredcoursessplit != 'Not Available' %}
-                    {% for course in student.notdeclaredcoursessplit %}
-                        <li>{{ course }}</li>
-                    {% endfor %}
-                {% else %}
-                    <li>Not Available</li>
-                {% endif %}
-            </ul></td><td>
 
-
-            <ul>
-                {% if student.backlogdetailssplit != 'No Backlogs' %}
-                    {% for detail in student.backlogdetailssplit %}
-                        <li>{{ detail }}</li>
-                    {% endfor %}
-                {% else %}
-                    <li>No Backlogs</li>
-                {% endif %}
-            </ul></td>
-    </tr>
-    </table>
              <div class="footer">
       <span>Dr Bhaskar Marapelli, Department of CSIT</span>, KLEF Deemed to be University,
 Green Fields, Vaddeswaram,

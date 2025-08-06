@@ -77,6 +77,7 @@ def all_reports():
             'cgpa': student_data['cgpa'].iloc[0],
             'Postal_Address': student_data['Postal_Address'].iloc[0],
             'phone': student_data['phone'].iloc[0],
+            'fathername': student_data['fathername'].iloc[0],
 
             'backlogs': student_data['backlogs'].iloc[0],
             'councelorname': student_data['counselorname'].iloc[0],
