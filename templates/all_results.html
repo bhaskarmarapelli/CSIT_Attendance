@@ -103,13 +103,26 @@ th {
     padding: 6px;
     background-color: #dee2e6;
     text-align: center;
-    font-size: 10px;
+    font-size: 8px;
     border-top: 1px solid #007bff;
 }
 
+
+
+.highlight-red {
+    background-color: #f8d7da;
+    font-weight: bold;
+}
+
+.highlight-yellow {
+    background-color: #fff3cd;
+    font-weight: bold;
+}
+
+
 @media print {
      body {
-        margin: 0;
+        margin: 5;
         padding: 0;
         counter-reset: page;
     }
@@ -157,6 +170,19 @@ th {
         display: none;
     }
 
+
+
+    .highlight-red {
+        background-color: #f8d7da !important;
+        font-weight: bold !important;
+    }
+
+    .highlight-yellow {
+        background-color: #fff3cd !important;
+        font-weight: bold !important;
+    }
+
+
 }
 </style>
 
@@ -185,7 +211,10 @@ th {
         {{ student.councelorname }}<br>
         <strong>Phone:</strong><br>
         {{ student.councelorcontact | int }}<br>
-        <strong>Department of CSIT, KL Deemed to be university</strong><br>
+        <strong>Department of CSIT, KLEF Deemed to be University,
+Green Fields, Vaddeswaram,
+Guntur District, A.P., INDIA.
+Pincode : 522 302.</strong><br>
     </div>
 </div>
 
@@ -204,16 +233,57 @@ th {
       <tr>
         <td>{{ student.name }}</td>
         <td>{{ student.councelorname }} - {{ student.councelorcontact | int }}</td>
-        <td>{{ student.cgpa }}</td>
-        <td>{{ student.backlogs | int }}</td>
+        <td class="{% if student.cgpa < 6.0 %}highlight-yellow{% endif %}">
+    {{ student.cgpa }}
+</td>
+         <td class="{% if student.backlogs | int > 0 %}highlight-red{% endif %}">
+{{ student.backlogs | int}}
+
+</td>
+
+
+
+
       </tr>
     </tbody>
   </table>
              <div class="message">
-   <p>Dear Parent,<br><br>
-    Please find the attendance of your Son/Daughter. The students who have less than 85% attendance in any subject shall not be allowed for final exams. So instruct your son/Daughter to attend regularly and maintain minimum 85% attendance in all subjects.<br><br>
-ప్రియమైన తల్లిదండ్రులారా,<br><br>
-     దయచేసి మీ కొడుకు/కూతురి హాజరు వివరాలను కనుక్కోండి. ఏదైనా సబ్జెక్టులో 85% కంటే తక్కువ హాజరు ఉన్న విద్యార్థులను ఫైనల్ పరీక్షలకు అనుమతించరు. కాబట్టి మీ కొడుకు/కూతురు క్రమం తప్పకుండా హాజరు కావాలని మరియు అన్ని సబ్జెక్టులలో కనీసం 85% హాజరును కొనసాగించాలని సూచించండి.</p>
+                 <br>
+   Dear Parent/Guardian,<br>
+
+  <p align="justify">
+Please find your ward’s attendance
+       details enclosed. Kindly note that students
+       must maintain <B>85% and above attendance
+       in each subject to be eligible for final
+       examinations</B>. If your son/daughter
+       has attendance below this threshold in
+       any subject, they will not be permitted
+       to appear for the exams. We request
+       you to encourage regular attendance to
+       ensure compliance with academic
+       requirements. For any further information
+       or concerns regarding your ward,
+       you are welcome to consult
+      the assigned <B>counselor ({{ student.councelorname }} - {{ student.councelorcontact | int }}) at your convenience.</B></p><br>
+ప్రియమైన తల్లిదండ్రులు/సంరక్షకులు,<br>
+
+<p align="justify">
+దయచేసి మీ కుమారుడు/ కుమార్తె  హాజరు వివరాలను
+       ఈ క్రింద గమనించ గలరు . విద్యార్థులు ఫైనల్
+       పరీక్షలకు అర్హత సాధించడానికి <B> ప్రతి సబ్జెక్టులో
+       85% లేదా అంతకంటే ఎక్కువ హాజరును కలిగి ఉండాలని
+       దయచేసి గమనించండి</B>.
+       మీ కుమారుడు/ కుమార్తె  ఏదైనా సబ్జెక్టులో ఈ పరిమితి
+       కంటే తక్కువ హాజరు కలిగి ఉంటే, వారు పరీక్షలకు
+       హాజరు కావడానికి అనుమతించబడరు. విద్యా అవసరాలకు
+       అనుగుణంగా ఉండేలా క్రమం తప్పకుండా హాజరును
+       ప్రోత్సహించాలని మేము మిమ్మల్ని అభ్యర్థిస్తున్నాము.
+       మీ కుమారుడు/ కుమార్తె కు సంబంధించిన ఏవైనా
+       మరింత  సమాచారం లేదా సందేహాల కోసం, మీకు
+       అనుకూలమైన
+       సమయంలో కేటాయించిన
+       <B>కౌన్సెలర్ ({{ student.councelorname }} - {{ student.councelorcontact | int }})‌ను సంప్రదించవచ్చు.</B></p>
  </div>
                 <h5>📘 Attendance Upto 31-7-2025</h5>
             <table>
@@ -233,7 +303,14 @@ th {
                         <td>{{ course.coursename }}</td>
                         <td>{{ course.totalclassesconducted }}</td>
                         <td>{{ course.totalclassesattended }}</td>
-                        <td>{{ course.attendance_percentage }}</td>
+
+                     <td class="{% if course.attendance_percentage < 85 %}highlight-red{% endif %}">
+    {{ course.attendance_percentage }}
+</td>
+
+
+
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -241,10 +318,7 @@ th {
 
 
              <div class="footer">
-      <span>Dr Bhaskar Marapelli, Department of CSIT</span>, KLEF Deemed to be University,
-Green Fields, Vaddeswaram,
-Guntur District, A.P., INDIA.
-Pincode : 522 302.
+      <span>Prepared by Department of CSIT</span>
     </div>
         </div>
     {% endfor %}
